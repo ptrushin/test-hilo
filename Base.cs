@@ -13,7 +13,6 @@ namespace test_hilo
 
         protected MainDbContext MainDbContext => ServiceProvider.GetService<MainDbContext>();
 
-        /// <summary>Строка соединения с БД</summary>
         public const string CONNECTION_STRING = "Host=localhost;Port=5432;Database=test;Username=test;Password=test;Include Error Detail=true;Command Timeout=0;";
         
         public Base(ITestOutputHelper output)
@@ -23,25 +22,10 @@ namespace test_hilo
             Services.AddDbContext<MainDbContext>(options =>
             {
                 options.UseNpgsql(CONNECTION_STRING);
-                //options.UseLoggerFactory(MainDbContext.LoggerFactory);
             });
 
-
-            Services.AddLogging(config =>
-            {
-                //config.AddDebug();
-                //config.AddConsole();
-                //etc
-            });
-            /*Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.TestOutput(output)
-                .CreateLogger();*/
 
             ServiceProvider = Services.BuildServiceProvider();
-
-            // Настройки журналирования
-
         }
 
         [Fact]
